@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Roboto', sans-serif;
+    
+    background-color: rgb(50, 49, 53);
+    color: rgb(209, 205, 205);
+}
+
+.cursor {
+    cursor: pointer;
+    user-select: none;
+}
