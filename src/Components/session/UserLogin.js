@@ -7,7 +7,6 @@ function UserLogin () {
     return (
         <div>
             {!session && <Redirect to="/login"/>}
-            {session && <Redirect to ="/"/>}
         </div>
     )
 }

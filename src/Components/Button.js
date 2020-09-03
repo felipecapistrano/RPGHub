@@ -2,13 +2,13 @@ import React from "react"
 
 import "../Styles/buttons.css"
 
-function Button ({id, classes, text, func}) {
+function Button ({id, classes, text, func, type="submit"}) {
     return (
         <button 
         id={id}
-        type="button"
         className={classes}
-        onClick={() => func}>
+        type={type}
+        onClick={func? () => func(): null}>
             {text}
         </button>
     )

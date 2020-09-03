@@ -1,15 +1,12 @@
 import React from "react"
-import Fadein from "react-fade-in"
 
-import Session from "../Components/session"
+import Session from "../Components/session/Session"
 
 import "../Styles/login.css"
 
 function Login () {
     return (
-        <Fadein>
-            <Session/>
-        </Fadein>
+        <Session/>
     )
 }
 

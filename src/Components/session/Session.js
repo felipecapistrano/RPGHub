@@ -4,7 +4,7 @@ import Fadein from "react-fade-in"
 import { useFormik } from "formik"
 
 import axios from "axios"
-import url from "../../constants/url"
+import baseUrl from "../fetch/url"
 
 import Button from "../Button"
 
@@ -42,7 +42,7 @@ function Session () {
         onSubmit: async values => {
             try {
                 const endpoint = login? "/login": "/register"
-                const response = await axios.post(url + endpoint, values)
+                const response = await axios.post(baseUrl + endpoint, values)
                 localStorage.setItem("id", response.data.id)
                 history.push("/")
             }catch(err) {
@@ -55,7 +55,6 @@ function Session () {
         <Fadein>
             <form id="login-container" onSubmit={formik.handleSubmit}>
                 <img src={icon} alt="icon"></img>
-                <label htmlFor="userName">UserName</label>
                 <input
                     id="userName"
                     name="userName"
@@ -64,7 +63,6 @@ function Session () {
                     value={formik.values.userName}
                 />
                 {formik.errors.userName ? <div>{formik.errors.userName}</div>: null}
-                <label htmlFor="password">Password</label>
                 <input
                     type="password"
                     id="password"
@@ -73,9 +71,8 @@ function Session () {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                 />
-                {console.log(formik.errors.password)}
                 {formik.errors.password ? <div>{formik.errors.password}</div>: null}
-                <Button id="form-button" classes="button" text={login? "Login": "Register"}/>
+                <Button id="login-button" classes="button" text={login? "Login": "Register"}/>
                 <p className="cursor" onClick={() => setLogin(!login)}>{login? "Don't have an account?" : "Already have an account?"}</p>                
             </form>
         </Fadein>

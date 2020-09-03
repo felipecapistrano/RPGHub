@@ -13,3 +13,11 @@
     cursor: pointer;
     user-select: none;
 }
+
+.transparent {
+    background-color: transparent;
+}
+
+.loading {
+    margin: 30px;
+}
