@@ -23,6 +23,7 @@
     height: 100px;
     width: 100%;
     border-top: 2px solid rgb(42, 41, 46);
+    border-bottom: 2px solid rgb(42, 41, 46);
     border-radius: 10px;
     transition: 0.3s;
 }
@@ -45,7 +46,6 @@
     align-self: center;
     margin-left: 10px;
 }
-
 
 .center {
     justify-content: center;

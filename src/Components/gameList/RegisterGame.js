@@ -3,8 +3,8 @@ import { Formik, Form, Field } from "formik";
 
 import Modal from "../Modal";
 
-import axios from "axios"
-import baseUrl from "../fetch/url"
+//import axios from "axios"
+//import baseUrl from "../fetch/url"
 
 import "../../Styles/form.css"
 
