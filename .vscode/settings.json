@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder:rpghub2}/backend/RPGHub.db",
+            "driver": "SQLite",
+            "name": "RPGHub",
+            "previewLimit": 50
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

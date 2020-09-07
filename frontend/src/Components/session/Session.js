@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import Fadein from "react-fade-in"
-import { useFormik } from "formik"
+import { Formik, Form, Field } from "formik";
 
 import axios from "axios"
 import baseUrl from "../fetch/url"
@@ -16,65 +16,52 @@ function Session () {
     //Flag to change between Login/Register. true means login and false means register
     const [login, setLogin] = useState(true)
 
-    const validate = values => {
-        const errors = {}
-        if (!values.userName) {
-            errors.userName = "Required"
-        } else if (values.userName.length < 5) {
-            errors.userName = "Must be 5 characters or more"
+    function validateUserName (value) {
+        let error
+        if (!value) {
+            error = "Required"
+        } else if (value.length < 5) {
+            error = "Must be 5 characters or more"
         }
-
-        if (!values.password) {
-            errors.password = "Required"
-        } else if (values.password.length < 5) {
-            errors.password = "Must be 5 characters or more"
-        }
-
-        return errors
+        return error
     }
 
-    const formik = useFormik({
-        initialValues: {
-            userName: "",
-            password: ""
-        },
-        validate,
-        onSubmit: async values => {
-            try {
-                const endpoint = login? "/login": "/register"
-                const response = await axios.post(baseUrl + endpoint, values)
-                localStorage.setItem("id", response.data.id)
-                history.push("/")
-            }catch(err) {
-                alert(err)
-            }
+    function validatePassword (value) {
+        let error
+        if (!value) {
+            error = "Required"
+        } else if (value.length < 5) {
+            error = "Must be 5 characters or more"
         }
-    })
+        return error
+    }
 
     return (
         <Fadein>
-            <form id="login-container" onSubmit={formik.handleSubmit}>
-                <img src={icon} alt="icon"></img>
-                <input
-                    id="userName"
-                    name="userName"
-                    placeholder="UserName"
-                    onChange={formik.handleChange}
-                    value={formik.values.userName}
-                />
-                {formik.errors.userName ? <div>{formik.errors.userName}</div>: null}
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
-                {formik.errors.password ? <div>{formik.errors.password}</div>: null}
-                <Button id="login-button" classes="button" text={login? "Login": "Register"}/>
-                <p className="cursor" onClick={() => setLogin(!login)}>{login? "Don't have an account?" : "Already have an account?"}</p>                
-            </form>
+            <Formik
+            initialValues={{username: "", password: ""}}
+            onSubmit= {async (values, {setSubmitting}) => {
+                try {
+                    const response = login? await axios.post(baseUrl + "login", values): await axios.post(baseUrl + "register", values)
+                    localStorage.setItem("id", response.data)
+                    history.push("/")
+                }catch(err) {
+                    alert(err)
+                }
+            }}
+            >
+                {({ errors, touched }) => (
+                    <Form id="login-container">
+                        <img src={icon} alt="icon"></img>
+                        <Field name="username" placeholder="Username" validate={validateUserName}/>
+                        {errors.username && touched.username ? <div>{errors.username}</div>: null}
+                        <Field type="password" name="password" placeholder="Password" validate={validatePassword}/>
+                        {errors.password && touched.password ? <div>{errors.password}</div>: null}
+                        <Button id="login-button" classes="button" text={login? "Login": "Register"}/>
+                        <p className="cursor" onClick={() => setLogin(!login)}>{login? "Don't have an account?" : "Already have an account?"}</p>                
+                    </Form>
+                )}
+            </Formik>
         </Fadein>
     )
 }

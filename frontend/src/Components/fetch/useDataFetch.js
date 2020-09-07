@@ -11,10 +11,10 @@ function useDataFetch(endpoint) {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsError(false)
             setIsLoading(true)
-            
             try {
-                const result = axios.get(url)
+                const result = await axios(url)
                 setData(result.data)
             }catch(error) {
                 setIsError(true)
