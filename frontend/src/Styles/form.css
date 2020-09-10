@@ -1,11 +1,13 @@
 .form-line {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
+
 
 label {
     align-self: center;
+    font-size: 18px;
 }
 
 .container {

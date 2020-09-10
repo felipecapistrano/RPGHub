@@ -1,0 +1,49 @@
+.content-container {
+    width: 80%;
+    margin: 10px;
+    background-color: rgb(50, 49, 53);
+    border-radius: 10px;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid black;
+}
+
+.content-header h3 {
+    font-size: 24px;
+}
+
+.arrow-right {
+    border: solid rgb(209, 205, 205);
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.arrow-down {
+    border: solid rgb(209, 205, 205);
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.content-children {
+    padding: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid black;
+    border-top: none;
+}

@@ -40,7 +40,7 @@ function Session () {
         <Fadein>
             <Formik
             initialValues={{username: "", password: ""}}
-            onSubmit= {async (values, {setSubmitting}) => {
+            onSubmit= {async (values) => {
                 try {
                     const response = login? await axios.post(baseUrl + "login", values): await axios.post(baseUrl + "register", values)
                     localStorage.setItem("id", response.data)
@@ -54,9 +54,9 @@ function Session () {
                     <Form id="login-container">
                         <img src={icon} alt="icon"></img>
                         <Field name="username" placeholder="Username" validate={validateUserName}/>
-                        {errors.username && touched.username ? <div>{errors.username}</div>: null}
+                        {errors.username && touched.username ? <div className="exception exception-login">{errors.username}</div>: null}
                         <Field type="password" name="password" placeholder="Password" validate={validatePassword}/>
-                        {errors.password && touched.password ? <div>{errors.password}</div>: null}
+                        {errors.password && touched.password ? <div className="exception exception-login">{errors.password}</div>: null}
                         <Button id="login-button" classes="button" text={login? "Login": "Register"}/>
                         <p className="cursor" onClick={() => setLogin(!login)}>{login? "Don't have an account?" : "Already have an account?"}</p>                
                     </Form>

@@ -16,7 +16,7 @@ c.execute('''
 
 c.execute('''
     CREATE TABLE Games(
-        id INTEGER NOT NULL,
+        id TEXT NOT NULL UNIQUE,
         owner_id INTEGER NOT NULL,
         gamename TEXT NOT NULL,
         image TEXT,
@@ -31,7 +31,6 @@ c.execute('''
         id INTEGER NOT NULL,
         game_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,
-        owner INTEGER NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(user_id) REFERENCES Users(id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
@@ -44,7 +43,6 @@ c.execute('''
         game_id INTEGER NOT NULL,
         type TEXT NOT NULL,
         name TEXT NOT NULL,
-        value TEXT NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
     )

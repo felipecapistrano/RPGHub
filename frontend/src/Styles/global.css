@@ -5,8 +5,11 @@
 
     font-family: 'Roboto', sans-serif;
     
-    background-color: rgb(50, 49, 53);
     color: rgb(209, 205, 205);
+}
+
+body {
+    background-color: rgb(50, 49, 53);
 }
 
 .cursor {
@@ -18,6 +21,16 @@
     background-color: transparent;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .loading {
     margin: 30px;
+}
+
+.exception {
+    align-self: flex-start;
+    color: rgb(208, 255, 0);
+    text-align: start;
 }

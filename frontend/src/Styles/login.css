@@ -3,7 +3,7 @@
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15%;
+    margin-top: 11%;
     text-align: center;
     width: 400px;
     border-radius: 5px;
@@ -33,18 +33,10 @@
     align-self: center;
 }
 
-#login-container div {
-    align-self: flex-start;
-    margin-left: 10%;
-    color: rgb(208, 255, 0);
-}
-
 #login-container p {
     margin: 4%;
 }
 
-.exception {
-    margin-top: 10px;
-    color: rgb(208, 255, 0);
-    text-align: start;
+.exception-login {
+    margin-left: 10%;
 }

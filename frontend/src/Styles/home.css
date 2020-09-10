@@ -11,8 +11,9 @@
     background-color: rgb(42, 41, 46);
     width: 60%;
     padding: 10px;
-    border: 2px solid rgb(42, 41, 46);
+    margin-top: 50px;
     border-radius: 10px;
+    border: 1px solid black;
 }
 
 .game-list h1 {
@@ -26,9 +27,11 @@
     flex-direction: row;
     height: 100px;
     width: 100%;
+    background-color: rgb(50, 49, 53);
     border: 2px solid rgb(42, 41, 46);
     border-radius: 10px;
     margin-bottom: 5px;
+    border: 1px solid black;
     transition: 0.3s;
 }
 
@@ -44,13 +47,28 @@
 .game-header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    width: 75%;
     padding: 10px
 }
 
 .game-header h3{
-    margin-bottom: 15px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.game-header p {
+    font-size: 14px;
+}
+
+.game-title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.game-title .icon {
+    margin-top: 8px;
+    margin-left: auto;
 }
 
 .game-image {

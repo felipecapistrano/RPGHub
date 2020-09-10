@@ -47,6 +47,13 @@ def login():
 
 
 #TABLE - GAMES
+@app.route('/games/adduser', methods=['POST'])
+def add_user():
+    c = get_db().cursor()
+    response = game.add_user(c, request.json)
+    get_db().commit()
+    return response
+
 @app.route('/games/create', methods=['POST'])
 def create_game():
     c = get_db().cursor()

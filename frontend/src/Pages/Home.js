@@ -1,16 +1,18 @@
 import React from "react"
 
 import UserLogin from "../Components/session/UserLogin"
-import Games from "../Components/gameList"
+import GameList from "../Components/gameList"
+import Header from "../Components/header"
 
 import "../Styles/home.css"
 
 function Home () {
     return (
-        <div id="home-container">
+        <>
+            <Header/>
             <UserLogin/>
-            <Games/>
-        </div>
+            <GameList/>
+        </>
     )
 }
 
