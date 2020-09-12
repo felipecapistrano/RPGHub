@@ -9,7 +9,7 @@ function Game({match}) {
     return(
         <>
             <Header/>
-            <GamePage id={match.params.gameid}/>
+            <GamePage url={match.params.gameid}/>
         </>
     )
 }

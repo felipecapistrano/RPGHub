@@ -1,10 +1,11 @@
 import React from "react"
 
-function GamePageHeader ({image, gamename}) {
+import noImage from "../../Assets/noImage.png"
+
+function GamePageHeader ({image}) {
     return (
         <div id="game-header">
-            <img id="game-image" src={image} alt="game"/>
-            <div id="game-title">{gamename}</div>
+            <img id="game-image" src={image? image: noImage} alt="game"/>
         </div>
     )
 }

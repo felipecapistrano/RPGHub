@@ -19,6 +19,7 @@ c.execute('''
         id TEXT NOT NULL UNIQUE,
         owner_id INTEGER NOT NULL,
         gamename TEXT NOT NULL,
+        genre TEXT,
         image TEXT,
         description TEXT,
         PRIMARY KEY (id)
@@ -43,6 +44,17 @@ c.execute('''
         game_id INTEGER NOT NULL,
         type TEXT NOT NULL,
         name TEXT NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(game_id) REFERENCES Games(id)
+    )
+''')
+
+c.execute('''
+    CREATE TABLE Resources(
+        id INTEGER NOT NULL,
+        game_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        value TEXT NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
     )

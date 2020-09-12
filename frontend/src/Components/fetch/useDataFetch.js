@@ -6,7 +6,7 @@ import baseUrl from "./url"
 function useDataFetch(endpoint) {
     const [data, setData] = useState()
     const [url, setUrl] = useState(baseUrl + endpoint)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
@@ -18,9 +18,9 @@ function useDataFetch(endpoint) {
                 setData(result.data)
             }catch(error) {
                 setIsError(true)
+            }finally{
+                setIsLoading(false)
             }
-
-            setIsLoading(false)
         }
 
         fetchData()

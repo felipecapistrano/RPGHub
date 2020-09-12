@@ -13,12 +13,14 @@ function GameList () {
     const [modal, setModal] = useState(false)
     const [{data, isLoading}] = useDataFetch(`games/${id}`)
 
-    const userGames = !data? "loading": data.map((game) => {
+    if (isLoading) return <ReactLoading className="loading" type="spin"/>
+    const userGames = data.map((game) => {
         return (
             <GameCard
             key={game.id}
             id={game.id}
             name={game.gamename} 
+            genre={game.genre}
             description={game.description}
             owner={game.owner_id === id? true: false}
             image={game.image}/>
@@ -30,9 +32,7 @@ function GameList () {
             <div className="game-list">
                 <h1>Your Games</h1>
                 <CreateGame func={() => setModal(true)}/>
-                {isLoading? 
-                <ReactLoading className="loading" type="spin"/>:
-                userGames}
+                {userGames}
             </div>
             {modal && <RegisterGame close={() => setModal(false)}/>}
         </div>

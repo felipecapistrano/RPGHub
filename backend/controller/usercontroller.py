@@ -17,14 +17,16 @@ class User():
         except:
             return jsonify("Username already taken"), 400
 
-    def get_user(self, c, id):
+    def get_usernames(self, c, request):
         try:
-            c.execute('SELECT id, username FROM Users WHERE id = ?', (id,))
-            select = c.fetchone()
-            response = {'id': select[0], 'username': select[1]}
-            return jsonify(response)
+            users = []
+            for id in request['ids']:
+                c.execute('SELECT username FROM Users WHERE id = ?', (id,))
+                select = c.fetchone()
+                users.append(select[0])
+            return jsonify(users)
         except:
-            return jsonify("User doesn't exist"), 400
+            return jsonify("There is an id that doesn't exist in the array"), 400
     
     def login(self, c, request):
         try:

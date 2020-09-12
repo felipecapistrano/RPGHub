@@ -22,37 +22,57 @@ class Game():
         except:
             return jsonify("It was not possible to join the game"), 400
 
+    def add_resource(self, c, request):
+        try:
+            game_id, name, value  =  request['game_id'], request['name'], request['value']
+            c.execute('INSERT INTO Resources VALUES (NULL, ?, ?, ?)', (game_id, name, value,))
+            return jsonify(True)
+        except:
+            return jsonify("It was not possible to create the resource"), 400
+
     def create_game(self, c, request):
         try:
-            self.__generate_id()
-            owner_id, gamename, description, image = request['owner_id'], request['gamename'], request['description'], request['image']
-            c.execute('INSERT INTO Games VALUES (?, ?, ?, ?, ?)', (self.__generate_id(), owner_id, gamename, image, description))
-            c.execute('SELECT max(id) FROM Games')
-            created = c.fetchone()
-            c.execute('INSERT INTO GamePermissions VALUES(NULL, ?, ?)', (created[0], owner_id,))
+            id = self.__generate_id()
+            owner_id, gamename, genre, description, image = request['owner_id'], request['gamename'], request['genre'], request['description'], request['image']
+            c.execute('INSERT INTO Games VALUES (?, ?, ?, ?, ?, ?)', (id, owner_id, gamename, genre, image, description))
+            c.execute('INSERT INTO GamePermissions VALUES(NULL, ?, ?)', (id, owner_id,))
             return jsonify(True)
         except:
             return jsonify("It was not possible to create the game"), 400
 
     def game_info(self, c, id):
         try:
-            players = []
+            player_ids = []
+            player_names = []
+            resources = {}
             c.execute('SELECT * FROM Games WHERE id = ?', (id,))
-            select = c.fetchone()
-            if select == None:
+            info = c.fetchone()
+
+            if info == None:
                 return jsonify("Game doesn't exist"), 400
-            for row in c.execute('''SELECT user_id
-            FROM GamePermissions
+
+            for row in c.execute('SELECT name, value FROM Resources WHERE game_id = ?', (id,)):
+                resources[row[0]] = row[1]
+
+            for row in c.execute('''SELECT Users.id, Users.username
+            FROM Users
+            INNER JOIN GamePermissions ON Users.id=GamePermissions.user_id
             WHERE game_id=?''', (id,)):
-                players.append(row[0])
+                player_ids.append(row[0])
+                player_names.append(row[1])
+
             response = {
-                'id': select[0], 
-                'owner_id': select[1], 
-                'gamename': select[2], 
-                'image': select[3], 
-                'description': select[4],
-                'players': players
+                'id': info[0], 
+                'owner_id': info[1], 
+                'gamename': info[2], 
+                'genre': info[3],
+                'image': info[4], 
+                'description': info[5],
+                'resources': resources,
+                'player_ids': player_ids,
+                'player_names': player_names
             }
+
             return jsonify(response)
         except:
             return jsonify("Game doesn't exist"), 400
@@ -63,12 +83,12 @@ class Game():
             for row in c.execute('''SELECT * 
             FROM Games
             WHERE owner_id = ?''', (id,)):
-                response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'image': row[3], 'description': row[4]})
+                response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'genre': row[3], 'image': row[4], 'description': row[5]})
             for row in c.execute('''SELECT * 
             FROM Games  
             INNER JOIN GamePermissions ON games.id=GamePermissions.game_id 
             WHERE GamePermissions.user_id = ? AND games.owner_id <> ?''', (id, id,)):
-                response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'image': row[3], 'description': row[4]})
+                response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'genre': row[3], 'image': row[4], 'description': row[5]})
             return jsonify(response)
         except:
             return jsonify("The user doesn't exist"), 400

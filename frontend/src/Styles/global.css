@@ -29,6 +29,10 @@ body {
     margin: 30px;
 }
 
+.big-font {
+    font-size: 20px;
+}
+
 .exception {
     align-self: flex-start;
     color: rgb(208, 255, 0);

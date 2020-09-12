@@ -35,10 +35,11 @@ def create_user():
     get_db().commit()
     return response
 
-@app.route('/users/<user_id>', methods=['GET'])
-def get_user(user_id):
+@app.route('/usernames', methods=['POST'])
+def get_users():
     c = get_db().cursor()
-    return user.get_user(c, user_id)
+    response = user.get_usernames(c, request.json)
+    return response
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -47,6 +48,13 @@ def login():
 
 
 #TABLE - GAMES
+@app.route('/games/addresource', methods=['POST'])
+def add_resource():
+    c = get_db().cursor()
+    response = game.add_resource(c, request.json)
+    get_db().commit()
+    return response
+
 @app.route('/games/adduser', methods=['POST'])
 def add_user():
     c = get_db().cursor()
@@ -64,13 +72,9 @@ def create_game():
 @app.route('/<game_id>', methods=['GET'])
 def game_info(game_id):
     c = get_db().cursor()
-    response = game.game_info(c, game_id)
-    get_db().commit()
-    return response
+    return game.game_info(c, game_id)
 
 @app.route('/games/<user_id>', methods=['GET'])
 def user_games(user_id):
     c = get_db().cursor()
-    response = game.user_games(c, user_id)
-    get_db().commit()
-    return response
+    return game.user_games(c, user_id)
