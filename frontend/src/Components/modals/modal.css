@@ -1,8 +1,25 @@
+.container {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+
 .modal {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     width: 45%;
+}
+
+.resource-modal {
+    margin-bottom: 105px;
+}
+
+.gamelist-modal {
     margin-bottom: 55px;
 }
 
@@ -76,4 +93,42 @@
 
 .exception-modal {
     margin-left: 20%;
+}
+
+.confirmation {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+#confirmation-header {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    font-size: 12px;
+    padding: 15px;
+    border: 1px solid black;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: rgb(42, 41, 46);
+    justify-content: space-between;
+    align-items: center;
+}
+
+#confirmation-header p{
+    font-size: 20px;
+}
+
+#confirmation-footer {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    padding: 15px;
+    border: 1px solid black;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(42, 41, 46);
+    justify-content: space-between;
+    align-items: center;
 }

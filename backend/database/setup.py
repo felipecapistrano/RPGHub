@@ -10,6 +10,7 @@ c.execute('''
         id INTEGER NOT NULL,
         username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
+        erased INTEGER NOT NULL,
         PRIMARY KEY (id)
     )
 ''')
@@ -22,6 +23,7 @@ c.execute('''
         genre TEXT,
         image TEXT,
         description TEXT,
+        erased INTEGER NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(owner_id) REFERENCES Users(id)
     )
@@ -54,9 +56,23 @@ c.execute('''
         id INTEGER NOT NULL,
         game_id INTEGER NOT NULL,
         name TEXT NOT NULL,
-        value TEXT NOT NULL,
+        link TEXT NOT NULL,
+        erased INTEGER NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
+    )
+''')
+
+c.execute('''
+    CREATE TABLE Notes(
+        id INTEGER NOT NULL,
+        game_id INTEGER NOT NULL,
+        user_id TEXT NOT NULL,
+        text TEXT NOT NULL,
+        erased INTEGER NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(game_id) REFERENCES Games(id)
+        FOREIGN KEY(user_id) REFERENCES Users(id)
     )
 ''')
 

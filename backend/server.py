@@ -3,6 +3,8 @@ from flask import Flask, request, g
 from flask_cors import CORS
 
 from controller.usercontroller import User
+from controller.resourcecontroller import Resource
+from controller.notecontroller import Note
 from controller.gamecontroller import Game
 
 
@@ -12,7 +14,8 @@ DATABASE = 'database/RPGHub.db'
 
 user = User()
 game = Game()
-
+resource = Resource()
+note = Note()
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -47,14 +50,42 @@ def login():
     return user.login(c, request.json)
 
 
-#TABLE - GAMES
+#TABLE - RESOURCES
 @app.route('/games/addresource', methods=['POST'])
 def add_resource():
     c = get_db().cursor()
-    response = game.add_resource(c, request.json)
+    response = resource.add_resource(c, request.json)
     get_db().commit()
     return response
 
+@app.route('/games/resources/<game_id>', methods=['GET'])
+def get_resources(game_id):
+    c = get_db().cursor()
+    return resource.get_resources(c, game_id)
+
+@app.route('/games/removeresource', methods=['POST'])
+def remove_resource():
+    c = get_db().cursor()
+    response = resource.remove_resource(c, request.json)
+    get_db().commit()
+    return response
+
+#TABLE - NOTES
+@app.route('/games/getnotes', methods=['POST'])
+def get_notes():
+    c = get_db().cursor()
+    response = note.get_notes(c, request.json)
+    get_db().commit()
+    return response
+
+@app.route('/games/savenotes', methods=['POST'])
+def save_notes():
+    c = get_db().cursor()
+    response = note.save_notes(c, request.json)
+    get_db().commit()
+    return response
+
+#TABLE - GAMES
 @app.route('/games/adduser', methods=['POST'])
 def add_user():
     c = get_db().cursor()

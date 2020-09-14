@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import "../../../Styles/content.css"
+import "./content.css"
 
 function Content ({name, children}) {
     const [open, setOpen] = useState(false)

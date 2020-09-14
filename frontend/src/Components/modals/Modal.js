@@ -1,13 +1,13 @@
 import React from "react"
 import Fadein from "react-fade-in"
 
-import Button from "./Button"
+import Button from "../Button"
 
-import "../Styles/modal.css"
+import "./modal.css"
 
-function Modal ({ title, close, children}) {
+function Modal ({title, close, children, className}) {
     return (
-        <Fadein className="modal">
+        <Fadein className={`modal ${className}`}>
             <header id="modal-header">
                 <h1>{title}</h1>
                 <p onClick={() => close()} className="cursor">X</p>                

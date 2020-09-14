@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios"
 import { useHistory } from "react-router";
 
-import Modal from "../Modal";
+import Modal from "../modals/Modal";
 import baseUrl from "../fetch/url";
 
 import "../../Styles/form.css"
@@ -52,7 +52,7 @@ function RegisterGame ({close}) {
         }}>
             {({ errors, touched }) => (
                 <Form className="container">
-                    <Modal close={() => close()} title="Create game">
+                    <Modal close={() => close()} title="Create game" className="gamelist-modal">
                         <div className="form-line">
                             <label htmlFor="gamename">Name</label>
                             <Field name="gamename" validate={validateName}/>

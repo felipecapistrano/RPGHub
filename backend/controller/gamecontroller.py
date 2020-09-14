@@ -1,6 +1,5 @@
 import sqlite3
 from flask import jsonify
-import json
 import random
 
 class Game():
@@ -22,19 +21,11 @@ class Game():
         except:
             return jsonify("It was not possible to join the game"), 400
 
-    def add_resource(self, c, request):
-        try:
-            game_id, name, value  =  request['game_id'], request['name'], request['value']
-            c.execute('INSERT INTO Resources VALUES (NULL, ?, ?, ?)', (game_id, name, value,))
-            return jsonify(True)
-        except:
-            return jsonify("It was not possible to create the resource"), 400
-
     def create_game(self, c, request):
         try:
             id = self.__generate_id()
             owner_id, gamename, genre, description, image = request['owner_id'], request['gamename'], request['genre'], request['description'], request['image']
-            c.execute('INSERT INTO Games VALUES (?, ?, ?, ?, ?, ?)', (id, owner_id, gamename, genre, image, description))
+            c.execute('INSERT INTO Games VALUES (?, ?, ?, ?, ?, ?, 0)', (id, owner_id, gamename, genre, image, description))
             c.execute('INSERT INTO GamePermissions VALUES(NULL, ?, ?)', (id, owner_id,))
             return jsonify(True)
         except:
@@ -44,15 +35,11 @@ class Game():
         try:
             player_ids = []
             player_names = []
-            resources = {}
-            c.execute('SELECT * FROM Games WHERE id = ?', (id,))
+            c.execute('SELECT * FROM Games WHERE id = ? AND erased = 0', (id,))
             info = c.fetchone()
 
             if info == None:
                 return jsonify("Game doesn't exist"), 400
-
-            for row in c.execute('SELECT name, value FROM Resources WHERE game_id = ?', (id,)):
-                resources[row[0]] = row[1]
 
             for row in c.execute('''SELECT Users.id, Users.username
             FROM Users
@@ -68,7 +55,6 @@ class Game():
                 'genre': info[3],
                 'image': info[4], 
                 'description': info[5],
-                'resources': resources,
                 'player_ids': player_ids,
                 'player_names': player_names
             }
@@ -82,12 +68,12 @@ class Game():
             response = []
             for row in c.execute('''SELECT * 
             FROM Games
-            WHERE owner_id = ?''', (id,)):
+            WHERE owner_id = ? AND erased = 0''', (id,)):
                 response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'genre': row[3], 'image': row[4], 'description': row[5]})
             for row in c.execute('''SELECT * 
             FROM Games  
             INNER JOIN GamePermissions ON games.id=GamePermissions.game_id 
-            WHERE GamePermissions.user_id = ? AND games.owner_id <> ?''', (id, id,)):
+            WHERE GamePermissions.user_id = ? AND games.owner_id <> ? AND games.erased = 0''', (id, id,)):
                 response.append({'id': row[0],'owner_id': row[1], 'gamename': row[2], 'genre': row[3], 'image': row[4], 'description': row[5]})
             return jsonify(response)
         except:

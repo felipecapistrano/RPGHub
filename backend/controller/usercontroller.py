@@ -9,8 +9,8 @@ class User():
     def create_user(self, c, request):
         try:
             username, password = request['username'], request['password']
-            c.execute('INSERT INTO Users VALUES (NULL, ?, ?)', (username, password))
-            c.execute('SELECT id FROM Users WHERE username = ? AND password = ?', (username, password))
+            c.execute('INSERT INTO Users VALUES (NULL, ?, ?, 0)', (username, password))
+            c.execute('SELECT id FROM Users WHERE username = ?', (username,))
             select = c.fetchone()
             response = select[0]
             return jsonify(response)
@@ -32,7 +32,7 @@ class User():
         try:
             username = request['username']
             password = request['password']
-            c.execute('SELECT id FROM Users WHERE username = ? AND password = ?', (username, password))
+            c.execute('SELECT id FROM Users WHERE username = ? AND password = ? AND erased = 0', (username, password))
             select = c.fetchone()
             response = select[0]
             return jsonify(response)

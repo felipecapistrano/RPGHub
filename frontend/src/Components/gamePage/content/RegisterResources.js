@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios"
 import { useHistory } from "react-router";
 
-import Modal from "../../Modal";
+import Modal from "../../modals/Modal";
 import baseUrl from "../../fetch/url";
 
 import "../../../Styles/form.css"
@@ -49,7 +49,7 @@ function RegisterResources ({close, url}) {
         }}>
             {({ errors, touched }) => (
                 <Form className="container">
-                    <Modal close={() => close()} title="Add resource">
+                    <Modal close={() => close()} title="Add resource" className="resource-modal">
                         <div className="form-line">
                             <label htmlFor="name">Name</label>
                             <Field name="name" validate={validateName}/>
