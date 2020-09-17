@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Formik, Form, Field } from "formik"
+import { useHistory } from "react-router";
 import axios from "axios"
 
 import Content from "./Content"
@@ -7,8 +8,9 @@ import baseUrl from "../../fetch/url"
 import Button from "../../Button"
 
 function GameSelfNotes ({url}) {
-    const user_id = localStorage.getItem("id")
     const [notes, setNotes] = useState("")
+    const user_id = localStorage.getItem("id")
+    const history = useHistory()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,7 +22,7 @@ function GameSelfNotes ({url}) {
             }
         }
         fetchData()
-    },[url, user_id])
+    })
 
     return (
         <Content name="Self-Notes">
@@ -33,6 +35,7 @@ function GameSelfNotes ({url}) {
             onSubmit= {async (values) => {
                 try {
                     await axios.post(baseUrl + `games/savenotes`, values)
+                    history.go()
                 }catch(err) {
                     alert(err)
                 }
@@ -41,7 +44,7 @@ function GameSelfNotes ({url}) {
                 <Form>
                     <p>Only you can see these notes.</p>
                     <Field as="textarea" name="text" className="text-area"/>
-                    <Button type="submit" classes="button" text="Save"/>
+                    <Button type="submit" classes="button end" text="Save"/>
                 </Form>
             </Formik>
         </Content>

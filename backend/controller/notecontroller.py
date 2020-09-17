@@ -12,7 +12,7 @@ class Note():
             notes = c.fetchone()
             return jsonify(notes[0])
         except:
-            return jsonify("It was not possible to get the notes"), 400
+            return jsonify("")
 
     def save_notes(self, c, request):
         try:

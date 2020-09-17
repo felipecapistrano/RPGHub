@@ -54,13 +54,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-height: 60%;
     padding: 12px;
     border-right: 1px solid black;
     border-left: 1px solid black;
     border-radius: 0px;
 }
 
-#modal-children input {
+#modal-children input, #modal-children select {
     border-radius: 5px;
     padding: 5px;
     border: none;

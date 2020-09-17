@@ -9,7 +9,7 @@ import InviteScreen from "./inviteScreen"
 function GamePage ({url}) {
     const [{data, isLoading, isError}] = useDataFetch(`${url}`)
     function checkPermission() {
-        const player = data.player_ids.filter(player_id => Number(localStorage.getItem("id")) === player_id)
+        const player = data.players.map((player) => player.id).filter(player_id => Number(localStorage.getItem("id")) === player_id)
         return player === null || player.length === 0 
     }
     if (isLoading) return <ReactLoading className="loading" type="spin"/>

@@ -46,6 +46,7 @@ c.execute('''
         game_id INTEGER NOT NULL,
         type TEXT NOT NULL,
         name TEXT NOT NULL,
+        erased INTEGER NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
     )
@@ -72,6 +73,33 @@ c.execute('''
         erased INTEGER NOT NULL,
         PRIMARY KEY (id)
         FOREIGN KEY(game_id) REFERENCES Games(id)
+        FOREIGN KEY(user_id) REFERENCES Users(id)
+    )
+''')
+
+c.execute('''
+    CREATE TABLE Characters(
+        id INTEGER NOT NULL,
+        game_id INTEGER NOT NULL,
+        user_id TEXT NOT NULL,
+        name TEXT NOT NULL,
+        image TEXT NOT NULL,
+        erased INTEGER NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(game_id) REFERENCES Games(id)
+        FOREIGN KEY(user_id) REFERENCES Users(id)
+    )
+''')
+
+c.execute('''
+    CREATE TABLE CharacterFields(
+        id INTEGER NOT NULL,
+        sheet_id INTEGER NOT NULL,
+        user_id TEXT NOT NULL,
+        value TEXT,
+        erased INTEGER NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(sheet_id) REFERENCES SheetFields(id)
         FOREIGN KEY(user_id) REFERENCES Users(id)
     )
 ''')

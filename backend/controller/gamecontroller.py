@@ -33,8 +33,7 @@ class Game():
 
     def game_info(self, c, id):
         try:
-            player_ids = []
-            player_names = []
+            players = []
             c.execute('SELECT * FROM Games WHERE id = ? AND erased = 0', (id,))
             info = c.fetchone()
 
@@ -45,8 +44,7 @@ class Game():
             FROM Users
             INNER JOIN GamePermissions ON Users.id=GamePermissions.user_id
             WHERE game_id=?''', (id,)):
-                player_ids.append(row[0])
-                player_names.append(row[1])
+                players.append({'id': row[0], 'name': row[1]})
 
             response = {
                 'id': info[0], 
@@ -55,8 +53,7 @@ class Game():
                 'genre': info[3],
                 'image': info[4], 
                 'description': info[5],
-                'player_ids': player_ids,
-                'player_names': player_names
+                'players': players,
             }
 
             return jsonify(response)

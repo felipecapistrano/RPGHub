@@ -17,7 +17,7 @@ function Modal ({title, close, children, className}) {
             </div>
             <footer id="modal-footer">
                 <Button type="button" func={() => close()} classes="button modal-button" text="Close"/>
-                <Button type="submit" classes="button modal-button" text="Create"/>
+                <Button type="submit" classes="button modal-button" text="Save"/>
             </footer>
         </Fadein>
     )

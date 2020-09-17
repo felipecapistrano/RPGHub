@@ -1,0 +1,18 @@
+.character-name {
+    position: absolute;
+    text-align: center;
+    margin-top: 350px;
+    font-size: 20px;
+    height: 25px;
+    width: 300px;
+    background-color: rgb(50, 49, 53);
+    border: 1px solid black;
+}
+
+.character-image {
+    width: 300px;
+    height: 450px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+}

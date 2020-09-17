@@ -7,7 +7,7 @@ function GameInfo ({description, genre, players}) {
         <Content name="Info">
             <div className="content-line">
                 <p className="bold">Players:</p>
-                <p>{players}</p>
+                <p>{players.map((player) => player.name + " ")}</p>
             </div>
             <div className="content-line">
                 <p className="bold">Genre:</p>

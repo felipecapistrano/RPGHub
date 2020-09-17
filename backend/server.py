@@ -5,6 +5,8 @@ from flask_cors import CORS
 from controller.usercontroller import User
 from controller.resourcecontroller import Resource
 from controller.notecontroller import Note
+from controller.sheetcontroller import Sheet
+from controller.charactercontroller import Character
 from controller.gamecontroller import Game
 
 
@@ -16,6 +18,8 @@ user = User()
 game = Game()
 resource = Resource()
 note = Note()
+sheet = Sheet()
+character = Character()
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -82,6 +86,35 @@ def get_notes():
 def save_notes():
     c = get_db().cursor()
     response = note.save_notes(c, request.json)
+    get_db().commit()
+    return response
+
+#TABLE - SHEETS
+@app.route('/games/sheet/<game_id>', methods=['GET'])
+def get_sheet(game_id):
+    c = get_db().cursor()
+    return sheet.get_sheet(c, game_id)
+
+@app.route('/games/savesheet', methods=['POST'])
+def save_sheet():
+    c = get_db().cursor()
+    response = sheet.save_sheet(c, request.json)
+    get_db().commit()
+    return response
+
+
+#TABLE - CHARACTERS
+@app.route('/games/getcharacter', methods=['POST'])
+def get_character():
+    c = get_db().cursor()
+    response = character.get_character(c, request.json)
+    get_db().commit()
+    return response
+
+@app.route('/games/savecharacter', methods=['POST'])
+def save_character():
+    c = get_db().cursor()
+    response = character.save_character(c, request.json)
     get_db().commit()
     return response
 
