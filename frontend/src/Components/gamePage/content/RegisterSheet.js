@@ -15,7 +15,6 @@ function RegisterSheet ({close, url}) {
     const history = useHistory()
     const [{data, isLoading}] = useDataFetch(`games/sheet/${url}`)
     if (isLoading) return null
-    console.log(data)
     return (
         <Formik
         initialValues={{

@@ -8,8 +8,8 @@ class Sheet():
     def get_sheet(self, c, id):
         try:
             sheet = []
-            for row in c.execute('SELECT name, type FROM SheetFields WHERE game_id = ? AND erased = 0', (id,)):
-                sheet.append({'name': row[0], 'type': row[1]})
+            for row in c.execute('SELECT id, name, type FROM SheetFields WHERE game_id = ? AND erased = 0', (id,)):
+                sheet.append({'sheet_id': row[0],'name': row[1], 'type': row[2]})
             return jsonify(sheet)
         except:
             return jsonify("It was not possible to get the sheet"), 400

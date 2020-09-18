@@ -17,7 +17,7 @@ function GameSheets ({url, players}) {
     const sheetButtons = players.map((player) => {
         if (player.id === Number(localStorage.getItem("id"))) return null
         return (
-            <div key={player.id} style={{marginBottom:"100px", justifyContent:"flex-start"}} className="form-line">
+            <div key={player.id} style={{marginBottom:"10px", justifyContent:"flex-start"}} className="form-line">
                 <p style={{marginRight: "10px"}} className="cursor bold" onClick={() => setUser(player.id)}>{player.name}</p>
                 {character === player? <p>{"<--"}</p>:null}
             </div>

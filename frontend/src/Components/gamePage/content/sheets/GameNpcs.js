@@ -8,28 +8,33 @@ import Content from "../Content"
 import baseUrl from "../../../fetch/url"
 import Button from "../../../Button"
 import CharacterCard from "./CharacterCard"
+import useDataFetch from "../../../fetch/useDataFetch"
 
 function GameNpcs ({url}) {
     const history = useHistory()
-    const [npcs, setNpcs] = useState()
+    const [{data, isLoading}] = useDataFetch(`games/sheet/${url}`)
+    const [npcs, setNpcs] = useState([{game_id: url, id:"", name: "", image: "", fields: [] || []}])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const result = await axios.post(baseUrl + `games/getnpcs`, {game_id: url})
-                setNpcs(result.data)
+                if (result.data.length !== 0)
+                    setNpcs(result.data)
+                else
+                    setNpcs([{game_id: url, id:"", name: "", image: "", fields: data}])
             }catch(error) {
                 alert(error)
             }
         }
         fetchData()
-    }, [url])
+    }, [url, data])
 
-    if (!npcs) return null
-    const fields = npcs[0].fields.map((field) => {
+    if (isLoading) return null
+    const fields = data? (data.map((field) => {
         return {name: field.name, type: field.type, sheet_id: field.sheet_id, value: ""}
-    })
-    console.log(npcs)
+    })): null
+
     return (
         <Content name="Npcs">
             <Formik
