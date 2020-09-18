@@ -12,10 +12,15 @@ function GameSheets ({url, players}) {
     const [modal, setModal] = useState(false)
     const [user, setUser] = useState()
     const [character, setCharacter] = useState()
+
     
     const sheetButtons = players.map((player) => {
+        if (player.id === Number(localStorage.getItem("id"))) return null
         return (
-            <p key={player.id} className="cursor" onClick={() => setUser(player.id)}>{player.name}</p>
+            <div key={player.id} style={{marginBottom:"100px", justifyContent:"flex-start"}} className="form-line">
+                <p style={{marginRight: "10px"}} className="cursor bold" onClick={() => setUser(player.id)}>{player.name}</p>
+                {character === player? <p>{"<--"}</p>:null}
+            </div>
         )
     })
 
@@ -37,7 +42,6 @@ function GameSheets ({url, players}) {
     ): 
     null
     
-    console.log(character)
     useEffect(() => {
         const fetchData = async () => {
             try {

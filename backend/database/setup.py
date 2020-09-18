@@ -104,5 +104,30 @@ c.execute('''
     )
 ''')
 
+c.execute('''
+    CREATE TABLE Npcs(
+        id INTEGER NOT NULL,
+        game_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        image TEXT NOT NULL,
+        erased INTEGER NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(game_id) REFERENCES Games(id)
+    )
+''')
+
+c.execute('''
+    CREATE TABLE NpcFields(
+        id INTEGER NOT NULL,
+        sheet_id INTEGER NOT NULL,
+        npc_id TEXT NOT NULL,
+        value TEXT,
+        erased INTEGER NOT NULL,
+        PRIMARY KEY (id)
+        FOREIGN KEY(sheet_id) REFERENCES SheetFields(id)
+        FOREIGN KEY(npc_id) REFERENCES Npcs(id)
+    )
+''')
+
 conn.commit()
 c.close()

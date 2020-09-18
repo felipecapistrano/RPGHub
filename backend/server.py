@@ -7,6 +7,7 @@ from controller.resourcecontroller import Resource
 from controller.notecontroller import Note
 from controller.sheetcontroller import Sheet
 from controller.charactercontroller import Character
+from controller.npccontroller import Npc
 from controller.gamecontroller import Game
 
 
@@ -20,6 +21,7 @@ resource = Resource()
 note = Note()
 sheet = Sheet()
 character = Character()
+npc = Npc()
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -115,6 +117,21 @@ def get_character():
 def save_character():
     c = get_db().cursor()
     response = character.save_character(c, request.json)
+    get_db().commit()
+    return response
+
+#TABLE - NPCS
+@app.route('/games/getnpcs', methods=['POST'])
+def get_npcs():
+    c = get_db().cursor()
+    response = npc.get_npcs(c, request.json)
+    get_db().commit()
+    return response
+
+@app.route('/games/savenpc', methods=['POST'])
+def save_npc():
+    c = get_db().cursor()
+    response = npc.save_npc(c, request.json)
     get_db().commit()
     return response
 
